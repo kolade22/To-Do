@@ -54,9 +54,12 @@
     }
   }
   function deleteToDo(index) {
-    toDoArr.splice(index, 1);
-    console.log(toDoArr);
-    displayToDos();
+    let canDelete = confirm("Are sure you want to delete this task?");
+    if (canDelete) {
+      toDoArr.splice(index, 1);
+      console.log(toDoArr);
+      displayToDos();
+    }
   }
   function displayToDos(params) {
     let output = document.getElementById("preview");
@@ -65,4 +68,6 @@
       output.innerHTML += `<p> ${toDoArr[index]} <button onclick="editToDo(${index})"> Edit </button> <button onclick="deleteToDo(${index})"> Delete </button> </p>`;
     }
   }
+
+  //void function is also a regular function that holds no value
 </script>
