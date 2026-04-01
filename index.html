@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h1>My Tasks</h1>
+      <div class="input-row">
+        <input type="text" id="todo" placeholder="Add a task..." />
+        <button class="add-btn" onclick="storeToDo()">+</button>
+      </div>
+      <div id="preview"><p class="empty">No tasks yet.</p></div>
+    </div>
+  </body>
+</html>
+<script>
+  let toDoArr = [];
+  function storeToDo() {
+    let toDoInput = document.getElementById("todo").value.trim();
+
+    if (toDoInput === "") {
+      alert("Input cannot be empty");
+    } else if (!isNaN(toDoInput[0])) {
+      alert("Input cannot start with or be a number");
+    } else if (toDoArr.includes(toDoInput)) {
+      alert("Task already exists!");
+    } else {
+      todo.value = "";
+      toDoArr.push(toDoInput);
+      displayToDos();
+    }
+    console.log(toDoArr);
+  }
+  function editToDo(index) {
+    let promptVal = prompt("Please enter the your edit here:", toDoArr[index]);
+    if (promptVal === null || promptVal.trim() === "") {
+      alert("Please input a value");
+    } else if (!isNaN(promptVal.trim()[0])) {
+      alert("Input cannot start with or be a number");
+    } else if (promptVal.trim() === toDoArr[index]) {
+      alert("You cannot edit with same value!");
+    } else {
+      toDoArr.splice(index, 1, promptVal.trim());
+      console.log(toDoArr);
+      displayToDos();
+    }
+  }
+  function deleteToDo(index) {
+    toDoArr.splice(index, 1);
+    console.log(toDoArr);
+    displayToDos();
+  }
+  function displayToDos(params) {
+    let output = document.getElementById("preview");
+    output.innerHTML = "";
+    for (let index = 0; index < toDoArr.length; index++) {
+      output.innerHTML += `<p> ${toDoArr[index]} <button onclick="editToDo(${index})"> Edit </button> <button onclick="deleteToDo(${index})"> Delete </button> </p>`;
+    }
+  }
+</script>
